@@ -12,6 +12,6 @@ impl CfgError {
     }
 
     pub fn report(&self, loc:String) {
-        eprintln!("[line {}],Error{}:{}",line, loc, message);
+        eprintln!("[line {}],Error{}:{}",self.line, loc, self.message);
     }
 }
