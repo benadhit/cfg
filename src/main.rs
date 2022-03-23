@@ -1,3 +1,7 @@
+mod token_type;
+mod token;
+mod scanner;
+use scanner::*;
 mod error;
 use error::*;
 
@@ -19,8 +23,8 @@ fn main() {
 }
 
 fn run_file(path : &String) -> io::Result<()> {
-   let read_in =std::fs::read_to_string(path)?;
-    match run(read_in.as_str()){
+   let buf =std::fs::read_to_string(path)?;
+    match run(buf){
         Ok(_) =>{},
         Err(m)=>{
             m.report("".to_string());
@@ -38,11 +42,11 @@ fn run_prompt() {
             if line.is_empty() {
                 break;
             }
-            match run(line.as_str()) {
+            match run(line) {
                 Ok(_)=>{}
                 Err(m) => {
                    m.report("".to_string());
-                   // std::process::exit(65);
+                  // std::process::exit(65);
                 }
             }
 
@@ -52,8 +56,8 @@ fn run_prompt() {
     }
 }
 
-fn run(source : &str) -> Result<(),CfgError>{
-    let scanner = Scanner{source};
+fn run(source : String) -> Result<(),CfgError>{
+    let mut scanner = Scanner::new(source);
     let tokens = scanner.scan_tokens()?;
 
     for token in tokens {

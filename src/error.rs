@@ -2,7 +2,6 @@
 pub struct CfgError {
     line : usize,
     message: String,
-
 }
 
 impl CfgError {
