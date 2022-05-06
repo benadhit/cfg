@@ -1,4 +1,3 @@
-
 #[derive(Debug)]
 pub enum TokenType {
     LeftParen,
@@ -11,11 +10,11 @@ pub enum TokenType {
     Plus,
     SemiColon,
     Slash,
-    Start,
+    Star,
     Bang,
     BangEqual,
     Equal,
-    EqualEqual,
+    Assign,
     Greater,
     GreaterEqual,
     Less,
@@ -39,5 +38,5 @@ pub enum TokenType {
     True,
     Var,
     While,
-    Eof
+    Eof,
 }

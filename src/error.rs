@@ -1,16 +1,15 @@
 #[derive(Debug)]
 pub struct CfgError {
-    line : usize,
+    line: usize,
     message: String,
 }
 
 impl CfgError {
-
-    pub fn error(line :usize, message: String) -> CfgError {
-        CfgError{line, message}
+    pub fn error(line: usize, message: String) -> CfgError {
+        CfgError { line, message }
     }
 
-    pub fn report(&self, loc:String) {
-        eprintln!("[line {}],Error{}:{}",self.line, loc, self.message);
+    pub fn report(&self, loc: String) {
+        eprintln!("[line {}],Error{}:{}", self.line, loc, self.message);
     }
 }

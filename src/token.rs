@@ -11,13 +11,13 @@ pub enum Object {
 }
 
 impl fmt::Display for Object {
-    fn fmt(&self, f: &mut fmt::Formatter)->fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-           Object::Num(x) => write!(f, "{x}"),
-           Object::Str(x) => write!(f, "\"{x}\""),
-           Object::Nil => write!(f, "nil"),
-           Object::True => write!(f, "true"),
-           Object::False => write!(f, "false")
+            Object::Num(x) => write!(f, "{x}"),
+            Object::Str(x) => write!(f, "\"{x}\""),
+            Object::Nil => write!(f, "nil"),
+            Object::True => write!(f, "true"),
+            Object::False => write!(f, "false"),
         }
     }
 }
@@ -31,33 +31,38 @@ pub struct Token {
 }
 
 impl Token {
-    pub fn new(ttype: TokenType, lexname: String, literal: Option<Object>, line: usize)-> Token{
-        Token{ttype, lexname, literal, line}
+    pub fn new(ttype: TokenType, lexname: String, literal: Option<Object>, line: usize) -> Token {
+        Token {
+            ttype,
+            lexname,
+            literal,
+            line,
+        }
     }
 
-    pub fn eof(line: usize) ->Token {
-        Token{
-            ttype: TokenType::Eof, 
-            lexname:"".to_string(), 
-            literal: None, 
-            line }
+    pub fn eof(line: usize) -> Token {
+        Token {
+            ttype: TokenType::Eof,
+            lexname: "".to_string(),
+            literal: None,
+            line,
+        }
     }
 }
 
 impl fmt::Display for Token {
-    fn fmt(&self, f: &mut fmt::Formatter)->fmt::Result {
-        write!(f, "{:?} {} {}", 
-        self.ttype, self.lexname, if let Some(literal) = &self.literal {
-            literal.to_string()
-        } else {
-            "None".to_string()
-        })
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "{:?} {} {} {}",
+            self.ttype,
+            self.lexname,
+            if let Some(literal) = &self.literal {
+                literal.to_string()
+            } else {
+                "None".to_string()
+            },
+            self.line
+        )
     }
 }
-
-/*
-pub enum Token {
-    literal :{lexname :String, literal : <...>},
-    Keyword : {lexname: String, ttype:String},
-}
-*/
