@@ -62,9 +62,8 @@ impl Scanner {
                         }
                     }
                 } else if self.is_match('*') {
-                   // block comment 
-                   self.scan_comment()?;
-
+                    // block comment
+                    self.scan_comment()?;
                 } else {
                     self.add_token(TokenType::Slash)
                 }
@@ -122,10 +121,10 @@ impl Scanner {
         Ok(())
     }
 
-    fn scan_comment(&mut self) -> Result<(), CfgError>{
+    fn scan_comment(&mut self) -> Result<(), CfgError> {
         loop {
             match self.peek() {
-                Some('*')=> {
+                Some('*') => {
                     self.advance();
                     if self.is_match('/') {
                         return Ok(());
@@ -140,14 +139,16 @@ impl Scanner {
                 }
                 Some('\n') => {
                     self.advance();
-                    self.line +=1;
+                    self.line += 1;
                 }
-                None=> {
-                    return Err(CfgError::error(self.line, 
-                        "unterminate comment".to_string()));
-                },
+                None => {
+                    return Err(CfgError::error(
+                        self.line,
+                        "unterminate comment".to_string(),
+                    ));
+                }
 
-                _=> {
+                _ => {
                     self.advance();
                 }
             }
